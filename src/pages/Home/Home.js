@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTrending } from '../../services/movieApi';
 import { Heading } from './HomeStyled';
-import { MoviesGallery } from '../../components/MoviesGallery/MoviesGallery';
+import MoviesGallery from '../../components/MoviesGallery/MoviesGallery';
 import { Section } from '../../components/Section/Section';
 
 const Home = () => {

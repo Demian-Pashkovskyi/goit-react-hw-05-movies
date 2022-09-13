@@ -1,15 +1,32 @@
-import { MovieItem } from '../MovieItem/MovieItem';
+import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import { Box } from '../Styled/Box';
+import MovieItem from '../MovieItem/MovieItem';
+import { Card } from './MoviesGalleryStyled';
 
-export const MoviesGallery = ({ trendingMovies }) => {
+const MoviesGallery = ({ movies }) => {
+  const location = useLocation();
   return (
-    <>
-      <ul>
-        {trendingMovies.map(movie => (
-          <li key={movie.id}>
+    <Box
+      as="ul"
+      display="grid"
+      gridTemplateColumns="repeat(5, 1fr)"
+      gridGap="20px"
+      gridAutoRows="auto"
+    >
+      {movies.map(movie => (
+        <li key={movie.id}>
+          <Card to={`/movies/${movie.id}`} state={{ from: location }}>
             <MovieItem movie={movie} />
-          </li>
-        ))}
-      </ul>
-    </>
+          </Card>
+        </li>
+      ))}
+    </Box>
   );
 };
+
+MoviesGallery.propTypes = {
+  movies: PropTypes.array.isRequired,
+};
+
+export default MoviesGallery;

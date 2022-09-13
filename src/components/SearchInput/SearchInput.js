@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { searchMoviesByName } from 'services/movie-api';
+import { toast } from 'react-toastify';
+import { searchMoviesByName } from '../../services/movieApi';
 import {
   SearchForm,
   SearchFormButton,
   SearchFormButtonLabel,
   SearchFormInput,
   Error,
-} from './SearchInput.styled';
+} from './SearchInputStyled';
 
 const SearchInput = ({ setMovies }) => {
   const {
@@ -31,7 +32,7 @@ const SearchInput = ({ setMovies }) => {
 
   useEffect(() => {
     if (!searchValue) {
-      return;
+      return toast.error('Sorry, movie not found');;
     }
 
     (async () => {
