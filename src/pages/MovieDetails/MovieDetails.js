@@ -1,8 +1,8 @@
 import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, Suspense } from 'react';
-import { Section } from '../../components/Section/Section';
-import { getMovieById } from '../../services/movieApi';
-import { Box } from '../../components/Styled/Box';
+import Section from 'components/Section/Section';
+import { getMovieById } from 'services/movieApi';
+import { Box } from 'components/Styled/Box';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import {
   Btn,

@@ -1,9 +1,10 @@
-import { Box } from '../Styled/Box';
+import { Box } from 'components/Styled/Box';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getReviewsByMovieId } from '../../services/movieApi';
+import { getReviewsByMovieId } from 'services/movieApi';
+import { ContentBox, Content, Rating } from './ReviewsStyled';
 
-export const Reviews = () => {
+const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
@@ -15,43 +16,45 @@ export const Reviews = () => {
 
   return (
     <Box>
-      {!reviews ? (
+      {!reviews.length > 0 ? (
         <p>No reviews</p>
       ) : (
-        <ul>
+        <Box as="ul" display="flex" flexDirection="column" gridGap={3}>
           {reviews.map(
             ({
               id,
               author,
-              author_details: { rating, avatar_path },
+              author_details: { rating },
               content,
               created_at,
-              updated_at,
             }) => {
               return (
-                <li key={id}>
+                <ContentBox key={id}>
                   <p>
                     <b>Author:</b> {author}
                   </p>
                   <p>
-                    <b>Rating:</b> {rating}
-                  </p>
-                  <p>
-                    <b>Created at</b> {created_at}
+                    <b>Rating:</b>{' '}
+                    <Rating rating={rating}>
+                      {rating ? rating : 'Not rated'}
+                    </Rating>
                   </p>
                   <p>
                     <b>Review:</b>
                   </p>
-                  <p>{content}</p>
+                  <Content>{content}</Content>
                   <p>
-                    <b>Last updated:</b> {updated_at}
+                    <b>Created at: </b>{' '}
+                    {new Date(created_at).toLocaleDateString('en-US')}
                   </p>
-                </li>
+                </ContentBox>
               );
             }
           )}
-        </ul>
+        </Box>
       )}
     </Box>
   );
 };
+
+export default Reviews;

@@ -31,8 +31,8 @@ const MovieItem = ({ movie: { title, poster_path, vote_average: rating } }) => {
 };
 
 MovieItem.propTypes = {
-  movie: PropTypes.array({
-    title: PropTypes.string.isRequired,
+  movie: PropTypes.shape({
+    title: PropTypes.string,
     poster_path: PropTypes.string,
     vote_average: PropTypes.number,
   }).isRequired,

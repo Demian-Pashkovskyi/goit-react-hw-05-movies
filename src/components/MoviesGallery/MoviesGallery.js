@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
-import { Box } from '../Styled/Box';
+import { Box } from 'components/Styled/Box';
 import MovieItem from '../MovieItem/MovieItem';
 import { Card } from './MoviesGalleryStyled';
 

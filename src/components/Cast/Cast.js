@@ -1,11 +1,12 @@
-import { Box } from '../Styled/Box';
+import { Box } from 'components/Styled/Box';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieCreditsById } from '../../services/movieApi';
+import { getMovieCreditsById } from 'services/movieApi';
+import { Img } from './CastStyled';
 
-export const Cast = () => {
+const Cast = () => {
   const { movieId } = useParams();
-  const [cast, setCast] = useState(null);
+  const [cast, setCast] = useState([]);
   useEffect(() => {
     (async () => {
       const credits = await getMovieCreditsById(movieId);
@@ -14,27 +15,36 @@ export const Cast = () => {
   }, [movieId]);
 
   return (
-    <Box
-      as="ul"
-      display="grid"
-      gridTemplateColumns="repeat(5, 1fr)"
-      gridGap="10px"
-    >
-      {cast &&
-        cast.slice(0, 20).map(({ id, name, character, profile_path }) => (
-          <Box as="li" key={id} width="200px">
-            <img
-              src={
-                profile_path
-                  ? 'https://image.tmdb.org/t/p/w500' + profile_path
-                  : 'https://dummyimage.com/200x300/000/fff&text=No+photo'
-              }
-              alt={name}
-            />
-            <p>{name}</p>
-            <p>Character: {character}</p>
-          </Box>
-        ))}
+    <Box>
+      {!cast.length > 0 ? (
+        <p>No cast</p>
+      ) : (
+        <Box
+          as="ul"
+          display="grid"
+          gridTemplateColumns="repeat(5, 1fr)"
+          gridGap="10px"
+        >
+          {cast.slice(0, 20).map(({ id, name, character, profile_path }) => (
+            <Box as="li" key={id} width="200px">
+              <Img
+                src={
+                  profile_path
+                    ? 'https://image.tmdb.org/t/p/w500' + profile_path
+                    : 'https://dummyimage.com/200x300/000/fff&text=No+photo'
+                }
+                alt={name}
+              />
+              <p>
+                <b>{name}</b>
+              </p>
+              <p>Character: {character}</p>
+            </Box>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
+
+export default Cast;
